@@ -14,18 +14,20 @@ const validationSchemeForm = yup.object().shape({
     ),
 });
 
-const initialValues = {
-  name: '',
-  number: '',
-};
+const ContactForm = ({ addContact }) => {
+  const initialValues = {
+    name: '',
+    number: '',
+  };
 
-const ContactForm = addContact => {
-  const handleContactFormSubmit = (values, { resetForm }) => {
+  const handleContactFormSubmit = (values, { setSubmitting, resetForm }) => {
+    setSubmitting(true);
     // values - собирает значения инпутов, далее в {actions} можно просмотреть все
     //  возможные методы для формы
-    //  addContact(values);
+    addContact(values);
     console.log(values);
     resetForm();
+    setSubmitting(false);
   };
 
   return (

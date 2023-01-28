@@ -42,12 +42,9 @@ export class App extends Component {
     return (
       <div>
         <h2>Phonebook</h2>
-        <ContactForm />
+        <ContactForm addContact={this.addContactToContactBook} />
         <h2>Contacts</h2>
-        <ContactList
-          addContact={this.addContactToContactBook}
-          contacts={this.state.contacts}
-        />
+        <ContactList contacts={this.state.contacts} />
       </div>
     );
   }
