@@ -1,10 +1,17 @@
-const ContactItem = ({ name, number }) => {
+import { Button } from '../Form/FormStyled.styled';
+
+const ContactItem = ({ name, number, deleteContact, id }) => {
+  const deleteContactFromContactBook = () => {
+    deleteContact(id);
+  };
   return (
     <li>
       <span>
         {name}: {number}
       </span>
-      <button type="button">Delete</button>
+      <Button type="button" onClick={deleteContactFromContactBook}>
+        Delete
+      </Button>
     </li>
   );
 };

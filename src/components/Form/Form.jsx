@@ -1,6 +1,6 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-
+import { FormSlyled, Label, Button } from './FormStyled.styled';
 const validationSchemeForm = yup.object().shape({
   name: yup
     .string()
@@ -36,23 +36,29 @@ const ContactForm = ({ addContact }) => {
       validationSchema={validationSchemeForm}
       onSubmit={handleContactFormSubmit}
     >
-      <Form>
-        <label htmlFor="">
+      <FormSlyled>
+        <Label htmlFor="name">
           Name
-          <Field type="text" name="name" placeholder="Enter your name" />
+          <Field
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Enter your name"
+          />
           <ErrorMessage component="div" name="name" />
-        </label>
-        <label htmlFor="">
+        </Label>
+        <Label htmlFor="number">
           Number
           <Field
             type="tel"
             name="number"
+            id="number"
             placeholder="Enter your phone number"
           />
           <ErrorMessage component="div" name="number" />
-        </label>
-        <button type="submit">Add contact</button>
-      </Form>
+        </Label>
+        <Button type="submit">Add contact</Button>
+      </FormSlyled>
     </Formik>
   );
 };
