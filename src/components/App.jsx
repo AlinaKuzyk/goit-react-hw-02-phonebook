@@ -2,23 +2,6 @@ import { nanoid } from 'nanoid';
 import { Component } from 'react';
 import { ContactForm, ContactList, Filter } from '../components';
 
-// export const App = () => {
-//   return (
-//     <div
-//     // style={{
-//     //   height: '100vh',
-//     //   display: 'flex',
-//     //   justifyContent: 'center',
-//     //   alignItems: 'center',
-//     //   fontSize: 40,
-//     //   color: '#010101',
-//     // }}
-//     >
-//       <ContactForm />
-//     </div>
-//   );
-// };
-
 export class App extends Component {
   state = {
     contacts: [
@@ -30,15 +13,12 @@ export class App extends Component {
     filter: '',
   };
 
-  addContactToContactBook = (name, number) => {
-    this.state.contacts.find(contact => contact.name === name)
-      ? alert(`${name} is already in contacts`)
-      : this.setState(prevState => {
-          return {
-            // { name, number, id: nanoid() } - добавление нового контакта в массив обьектов
-            contacts: [...prevState.contacts, { name, number, id: nanoid() }],
-          };
-        });
+  addContactToContactBook = value => {
+    const newContact = { id: nanoid(), name: value.name, number: value.number };
+    // { name, number, id: nanoid() } - добавление нового контакта в массив обьектов
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, newContact],
+    }));
   };
 
   deleteContactFromContactBook = id => {
@@ -56,6 +36,11 @@ export class App extends Component {
     this.setState({ filter: event.currentTarget.value });
   };
 
+  checkedDupliteName = value =>
+    this.state.contacts.some(
+      ({ name }) => name.toLowerCase() === value.toLowerCase()
+    );
+
   render() {
     const normalizedFilter = this.state.filter.toLowerCase();
     //  выводит имя, которое мы ввели в фильтр, и которое совпадает с именем из списка
@@ -63,9 +48,16 @@ export class App extends Component {
       contact.name.toLowerCase().includes(normalizedFilter)
     );
     return (
-      <div>
+      <div
+        style={{
+          padding: '10px',
+        }}
+      >
         <h2>Phonebook</h2>
-        <ContactForm addContact={this.addContactToContactBook} />
+        <ContactForm
+          dupliteName={this.checkedDupliteName}
+          addContact={this.addContactToContactBook}
+        />
         <h2>Contacts</h2>
         <Filter value={this.filter} onChange={this.handleFilter} />
         <ContactList

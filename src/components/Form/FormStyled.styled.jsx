@@ -1,10 +1,21 @@
 import styled from '@emotion/styled';
-import { Form } from 'formik';
+import { Form, ErrorMessage, Field } from 'formik';
 
 export const FormSlyled = styled(Form)`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 10px;
+`;
+
+export const StyledInput = styled(Field)`
+  display: flex;
+  width: 250px;
+`;
+
+export const ErrMessage = styled(ErrorMessage)`
+  font-size: 12px;
+  color: red;
+  max-width: 200px;
 `;
 
 export const Label = styled.label`
@@ -13,6 +24,7 @@ export const Label = styled.label`
 `;
 
 export const Button = styled.button`
+  max-width: 80px;
   background-color: #2a6b84;
   color: white;
   border: 1px solid transparent;

@@ -1,6 +1,13 @@
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import * as yup from 'yup';
-import { FormSlyled, Label, Button } from './FormStyled.styled';
+import {
+  FormSlyled,
+  Label,
+  Button,
+  ErrMessage,
+  StyledInput,
+} from './FormStyled.styled';
+
 const validationSchemeForm = yup.object().shape({
   name: yup
     .string()
@@ -14,7 +21,7 @@ const validationSchemeForm = yup.object().shape({
     ),
 });
 
-const ContactForm = ({ addContact }) => {
+const ContactForm = ({ addContact, dupliteName }) => {
   const initialValues = {
     name: '',
     number: '',
@@ -22,6 +29,9 @@ const ContactForm = ({ addContact }) => {
 
   const handleContactFormSubmit = (values, { setSubmitting, resetForm }) => {
     setSubmitting(true);
+    dupliteName(values.name)
+      ? alert(`${values.name} is already in contacts`)
+      : addContact(values);
     // values - собирает значения инпутов, далее в {actions} можно просмотреть все
     //  возможные методы для формы
     addContact(values);
@@ -37,26 +47,28 @@ const ContactForm = ({ addContact }) => {
       onSubmit={handleContactFormSubmit}
     >
       <FormSlyled>
-        <Label htmlFor="name">
-          Name
-          <Field
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Enter your name"
-          />
-          <ErrorMessage component="div" name="name" />
-        </Label>
-        <Label htmlFor="number">
-          Number
-          <Field
-            type="tel"
-            name="number"
-            id="number"
-            placeholder="Enter your phone number"
-          />
-          <ErrorMessage component="div" name="number" />
-        </Label>
+        <div>
+          <Label htmlFor="name">
+            Name
+            <StyledInput
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter your name"
+            />
+            <ErrMessage component="div" name="name" />
+          </Label>
+          <Label htmlFor="number">
+            Number
+            <StyledInput
+              type="tel"
+              name="number"
+              id="number"
+              placeholder="Enter your phone number"
+            />
+            <ErrMessage component="div" name="number" />
+          </Label>
+        </div>
         <Button type="submit">Add contact</Button>
       </FormSlyled>
     </Formik>
