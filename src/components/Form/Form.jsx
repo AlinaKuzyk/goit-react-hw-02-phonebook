@@ -39,7 +39,7 @@ const ContactForm = ({ addContact, dupliteName }) => {
       : addContact(values);
     // values - собирает значения инпутов, далее в {actions} можно просмотреть все
     //  возможные методы для формы
-    addContact(values);
+
     //  console.log(values);
     resetForm();
     setSubmitting(false);
