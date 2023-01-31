@@ -8,6 +8,9 @@ import {
   StyledInput,
 } from './FormStyled.styled';
 
+const phoneRegExp =
+  /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+
 const validationSchemeForm = yup.object().shape({
   name: yup
     .string()
@@ -15,10 +18,12 @@ const validationSchemeForm = yup.object().shape({
       "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
     ),
   number: yup
-    .number()
-    .required(
+    .string()
+    .matches(
+      phoneRegExp,
       'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
-    ),
+    )
+    .required(),
 });
 
 const ContactForm = ({ addContact, dupliteName }) => {
@@ -35,7 +40,7 @@ const ContactForm = ({ addContact, dupliteName }) => {
     // values - собирает значения инпутов, далее в {actions} можно просмотреть все
     //  возможные методы для формы
     addContact(values);
-    console.log(values);
+    //  console.log(values);
     resetForm();
     setSubmitting(false);
   };
